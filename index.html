@@ -19,6 +19,7 @@
     --red: #f87171;
     --blue: #60a5fa;
     --pink: #f472b6;
+    --yellow: #fbbf24;
     --nav-width: 260px;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -78,6 +79,7 @@
   .card-label.pm    { background: rgba(108,99,255,0.15);  color: var(--accent-light); }
   .card-label.test  { background: rgba(244,114,182,0.15); color: var(--pink); }
   .card-label.ops   { background: rgba(251,146,60,0.15);  color: var(--orange); }
+  .card-label.setup { background: rgba(52,211,153,0.15);  color: var(--green); }
 
   /* ---------- FLOW DIAGRAMS ---------- */
   .flow {
@@ -97,9 +99,9 @@
     padding: 0.15rem 0.5rem; border-radius: 4px; margin-right: 0.35rem;
     vertical-align: middle;
   }
-  .badge.ios     { background: rgba(96,165,250,0.18); color: var(--blue); }
+  .badge.ios    { background: rgba(96,165,250,0.18); color: var(--blue); }
   .badge.android { background: rgba(52,211,153,0.18); color: var(--green); }
-  .badge.mw      { background: rgba(251,146,60,0.18); color: var(--orange); }
+  .badge.mw     { background: rgba(251,146,60,0.18); color: var(--orange); }
 
   /* ---------- CODE BLOCKS ---------- */
   pre {
@@ -141,6 +143,21 @@
     margin: 1.25rem 0; font-size: 0.9rem;
   }
 
+  /* ---------- SETUP CHECKLIST ---------- */
+  .checklist {
+    list-style: none; margin-left: 0; padding-left: 0;
+  }
+  .checklist li {
+    padding: 0.5rem 0 0.5rem 2rem;
+    position: relative;
+  }
+  .checklist li::before {
+    content: '';
+    position: absolute; left: 0; top: 0.7rem;
+    width: 16px; height: 16px;
+    border: 2px solid var(--border); border-radius: 4px;
+  }
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 900px) {
     nav { display: none; }
@@ -159,6 +176,13 @@
   <a href="#big-picture">The Big Picture</a>
   <a href="#teams">Our Linear Teams</a>
 
+  <div class="nav-group">Setup</div>
+  <a href="#setup-overview">Setup Overview</a>
+  <a href="#setup-claude-code">Claude Code Setup</a>
+  <a href="#setup-cowork">Cowork Setup</a>
+  <a href="#setup-chrome">Chrome Extension Setup</a>
+  <a href="#setup-integrations">MCP Integrations</a>
+
   <div class="nav-group">Workflows</div>
   <a href="#product">Product &amp; Planning</a>
   <a href="#dev">Development</a>
@@ -169,6 +193,10 @@
   <a href="#sentry">Sentry</a>
   <a href="#zendesk">Zendesk</a>
   <a href="#github">GitHub</a>
+  <a href="#slack">Slack</a>
+  <a href="#xcode-build">XcodeBuildMCP</a>
+  <a href="#dash">Dash Docs</a>
+  <a href="#scheduled-tasks">Scheduled Tasks</a>
 
   <div class="nav-group">Claude Touchpoints</div>
   <a href="#claude-code">Claude Code</a>
@@ -183,398 +211,570 @@
 <!-- ==================== MAIN ==================== -->
 <main>
 
-<!-- HERO -->
-<h1>AI-Assisted Workflow<br><span>Linear &amp; Claude at Arkyn</span></h1>
-<p class="hero-sub">
-  A practical walkthrough of how we use Linear for project tracking and Claude as an AI co-pilot across product, development, and QA — for the FastWork iOS, Android, and MW&nbsp;&amp;&nbsp;SAP teams.
-</p>
+<h1>AI-Assisted Workflow <span>—</span></h1>
+<h1>Linear <span>&amp;</span> Claude at Arkyn</h1>
+<p class="hero-sub">A complete walkthrough of our process for shipping software with Linear and Claude.</p>
 
-<!-- ========== BIG PICTURE ========== -->
+<!-- ==================== OVERVIEW ==================== -->
+
 <h2 id="big-picture">The Big Picture</h2>
 
-<p>Our workflow connects four systems into a single feedback loop:</p>
+<p>The Arkyn team uses <strong>Linear</strong> to track all work and <strong>Claude</strong> (through Claude Code, Cowork, and Chrome) to execute that work. The workflow integrates with <strong>Sentry, Zendesk, GitHub, Slack, XcodeBuildMCP, Dash Docs,</strong> and <strong>Scheduled Tasks</strong> to create a seamless system where issues become projects, projects become code, and code gets deployed.</p>
 
-<div class="flow">
-  <div class="flow-step">Zendesk (customer reports)</div>
-  <div class="flow-arrow">&rarr;</div>
-  <div class="flow-step">Linear (plan &amp; track)</div>
-  <div class="flow-arrow">&rarr;</div>
-  <div class="flow-step">GitHub (build &amp; review)</div>
-  <div class="flow-arrow">&rarr;</div>
-  <div class="flow-step">Sentry (monitor)</div>
+<div class="card">
+  <p><strong>Core principle:</strong> Let Claude read the issue in Linear, understand context from tools, and ship code without context-switching.</p>
 </div>
 
-<p>
-  <strong>Claude</strong> sits alongside each stage — helping product managers draft specs in Cowork, helping developers implement and review code with Claude Code, and helping testers verify behavior with Claude in Chrome. The goal is to reduce context-switching: information flows from one tool to the next without manual copy-paste.
-</p>
-
-<!-- ========== TEAMS ========== -->
 <h2 id="teams">Our Linear Teams</h2>
 
+<p>We organize work into three teams in Linear:</p>
+
 <table>
-  <thead><tr><th>Team</th><th>Key</th><th>Scope</th></tr></thead>
-  <tbody>
-    <tr><td><span class="badge ios">iOS</span> FastWork iOS</td><td><code>FWIOS</code></td><td>iOS &amp; macOS app — Swift, SwiftUI, GRDB</td></tr>
-    <tr><td><span class="badge android">Android</span> FastWork Android</td><td><code>FWAND</code></td><td>Android app — Kotlin, Jetpack Compose</td></tr>
-    <tr><td><span class="badge mw">MW</span> FastWork MW &amp; SAP</td><td><code>FWMW</code></td><td>Middleware, SAP integrations, API layer</td></tr>
-  </tbody>
+  <tr>
+    <th>Team</th>
+    <th>Focus</th>
+    <th>Platform</th>
+    <th>Tools</th>
+  </tr>
+  <tr>
+    <td><strong>Product</strong></td>
+    <td>Planning, design specs, research</td>
+    <td>Web &amp; Mobile</td>
+    <td>Figma, Slack, Zendesk</td>
+  </tr>
+  <tr>
+    <td><strong>Backend</strong></td>
+    <td>APIs, data, infrastructure</td>
+    <td>Server</td>
+    <td>GitHub, Sentry, AWS</td>
+  </tr>
+  <tr>
+    <td><strong>Mobile</strong></td>
+    <td>iOS &amp; Android clients</td>
+    <td>iOS, Android</td>
+    <td>GitHub, XcodeBuildMCP, Dash, TestFlight</td>
+  </tr>
 </table>
 
-<p>
-  Issues are prefixed with the team key (e.g. <code>FWIOS-142</code>). Projects group related issues across sprints — for example, <strong>Mobile Database Migration</strong> is an active project in FWIOS, while <strong>Operation Quantity</strong> lives in FWAND. The <strong>FastWork Support</strong> project collects incoming Zendesk and Sentry issues.
-</p>
+<!-- ==================== SETUP ==================== -->
 
-<!-- ========== PRODUCT ========== -->
-<h2 id="product">Product &amp; Planning Workflow</h2>
+<h2 id="setup-overview">Setup Overview</h2>
 
-<div class="card">
-  <div class="card-label pm">Product &amp; PM</div>
-  <h3>1. Capture the requirement</h3>
-  <p>
-    When a feature request or bug arrives — from a customer call, a Zendesk ticket, or an internal idea — create a Linear issue in the appropriate team. Use <strong>Cowork</strong> (Claude's desktop tool) to help draft the issue description: paste in raw notes, a Zendesk transcript, or a Sentry stacktrace and ask Claude to structure it into a clear problem statement, acceptance criteria, and test plan.
-  </p>
-  <div class="flow">
-    <div class="flow-step">Raw notes / Zendesk ticket</div>
-    <div class="flow-arrow">&rarr;</div>
-    <div class="flow-step">Cowork: "Structure this into a Linear issue"</div>
-    <div class="flow-arrow">&rarr;</div>
-    <div class="flow-step">Linear issue created</div>
-  </div>
+<p>To get the full workflow running, you need:</p>
+
+<ol>
+  <li><strong>Claude Code</strong> — The IDE for working with projects</li>
+  <li><strong>Cowork</strong> — The plugin ecosystem for integrations</li>
+  <li><strong>Chrome Extension</strong> — Claude in your browser</li>
+  <li><strong>MCP Integrations</strong> — Tools like Slack, GitHub, Sentry, Dash, and more</li>
+</ol>
+
+<h3 id="setup-claude-code">Claude Code Setup</h3>
+
+<p>Claude Code is Anthropic's official CLI for Claude. It lets you open projects and work with them directly.</p>
+
+<p><strong>Installation:</strong></p>
+<pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+
+<p><strong>Usage:</strong></p>
+<pre><code>claude-code open /path/to/project</code></pre>
+
+<p>Once opened, you can ask Claude to read files, run commands, make commits, and push code—all without leaving the tool.</p>
+
+<h3 id="setup-cowork">Cowork Setup</h3>
+
+<p>Cowork is the plugin platform that extends Claude's capabilities. Plugins provide access to tools like Linear, Slack, GitHub, and more.</p>
+
+<p><strong>Install a plugin:</strong></p>
+<pre><code>claude setup-cowork</code></pre>
+
+<p>This opens a guided setup flow where you can:</p>
+<ul>
+  <li>Choose your role (designer, engineer, product manager, etc.)</li>
+  <li>Select matching plugins</li>
+  <li>Authenticate with each tool</li>
+  <li>Test the connection</li>
+</ul>
+
+<p>Once set up, your plugins persist and are available in all future Claude sessions.</p>
+
+<h3 id="setup-chrome">Chrome Extension Setup</h3>
+
+<p>The Chrome extension brings Claude into your browser, so you can chat with Claude while browsing Linear, GitHub, Sentry, or any other web tool.</p>
+
+<p><strong>Install:</strong> Search for "Claude" in the Chrome Web Store and install.</p>
+
+<p><strong>Authenticate:</strong> Click the extension icon, log in with your Anthropic account, and grant the necessary permissions.</p>
+
+<p><strong>Usage:</strong> Highlight text, right-click "Ask Claude," and get responses in a side panel without leaving the page.</p>
+
+<h3 id="setup-integrations">MCP Integrations</h3>
+
+<p>MCPs (Model Context Protocol) are how Claude connects to external tools. The key ones for Arkyn:</p>
+
+<table>
+  <tr>
+    <th>Integration</th>
+    <th>Use Case</th>
+    <th>When to Use</th>
+  </tr>
+  <tr>
+    <td><strong>Linear</strong></td>
+    <td>Read/write issues, create cycles, fetch project context</td>
+    <td>Planning, creating tasks, reading issue details</td>
+  </tr>
+  <tr>
+    <td><strong>GitHub</strong></td>
+    <td>Create/update files, push commits, open PRs</td>
+    <td>Coding, CI/CD, code review</td>
+  </tr>
+  <tr>
+    <td><strong>Slack</strong></td>
+    <td>Send messages, create channels, read threads</td>
+    <td>Notifications, team communication, announcements</td>
+  </tr>
+  <tr>
+    <td><strong>Sentry</strong></td>
+    <td>Fetch error details, analyze crashes, create issues</td>
+    <td>Debugging, root cause analysis, monitoring</td>
+  </tr>
+  <tr>
+    <td><strong>Zendesk</strong></td>
+    <td>Read/write tickets, add comments, fetch user info</td>
+    <td>Customer support, issue triage, responses</td>
+  </tr>
+  <tr>
+    <td><strong>XcodeBuildMCP</strong></td>
+    <td>Build iOS/macOS apps, run tests, manage simulators</td>
+    <td>Mobile development, CI/CD, device testing</td>
+  </tr>
+  <tr>
+    <td><strong>Dash</strong></td>
+    <td>Search documentation offline, fetch code examples</td>
+    <td>Learning APIs, checking syntax, reference lookup</td>
+  </tr>
+  <tr>
+    <td><strong>Scheduled Tasks</strong></td>
+    <td>Run tasks on a schedule or manually, track progress</td>
+    <td>Automation, periodic checks, recurring workflows</td>
+  </tr>
+</table>
+
+<!-- ==================== PRODUCT &amp; PLANNING ==================== -->
+
+<h2 id="product">Product &amp; Planning</h2>
+
+<p><span class="badge ios">iOS</span><span class="badge android">Android</span><span class="badge mw">Web</span></p>
+
+<p>The Product team in Linear owns the high-level direction, customer feedback, and design specs.</p>
+
+<h3>Flow: From Customer Feedback to Issue</h3>
+
+<div class="flow">
+  <div class="flow-step">Customer ticket in Zendesk</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Product triage</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Linear issue created</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Assigned to team</div>
 </div>
 
-<div class="card">
-  <div class="card-label pm">Product &amp; PM</div>
-  <h3>2. Write a feature spec</h3>
-  <p>
-    For non-trivial features, we write a spec before implementation begins. The spec lives in the repo at <code>docs/specs/&lt;feature-name&gt;.md</code> and covers: goal, data models, UI description, reference feature, design decisions, acceptance criteria, test plan, and implementation steps.
-  </p>
-  <p>
-    <strong>Cowork can draft the spec for you.</strong> Give it the Linear issue, any design mockups, and mention a reference feature ("follow the pattern in TimeConfirmations") — it will produce a first draft you can review and refine.
-  </p>
-</div>
+<p>Claude can assist by:</p>
+<ul>
+  <li>Reading Zendesk tickets and extracting key requirements</li>
+  <li>Creating Linear issues from customer feedback</li>
+  <li>Writing issue descriptions with context from Slack</li>
+</ul>
+
+<h3>The Product Brief</h3>
+
+<p>A good issue includes:</p>
 
 <div class="card">
-  <div class="card-label pm">Product &amp; PM</div>
-  <h3>3. Break into tasks</h3>
-  <p>
-    Once the spec is approved, break it into Linear sub-issues assigned to the right team. Features that span platforms get a parent issue (or project) with sub-issues in both <span class="badge ios">FWIOS</span> and <span class="badge android">FWAND</span>. This is where cross-platform handoff begins — more on that below.
-  </p>
+  <h4>What</h4>
+  <p><em>What needs to be built?</em> A one-sentence summary.</p>
+
+  <h4>Why</h4>
+  <p><em>Why is it important?</em> Customer impact, OKR alignment, or business metric.</p>
+
+  <h4>How</h4>
+  <p><em>How might we do it?</em> Acceptance criteria, rough approach, design specs.</p>
+
+  <h4>Who</h4>
+  <p><em>Who's involved?</em> Platform badges, owner, blocked by, dependencies.</p>
 </div>
 
-<!-- ========== DEV ========== -->
-<h2 id="dev">Development Workflow</h2>
+<!-- ==================== DEVELOPMENT ==================== -->
+
+<h2 id="dev">Development</h2>
+
+<p><span class="badge ios">iOS</span><span class="badge android">Android</span><span class="badge mw">Web</span></p>
+
+<h3>Flow: From Issue to Code</h3>
+
+<div class="flow">
+  <div class="flow-step">Open issue in Linear</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Run <code>claude-code open .</code></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Ask Claude to read the issue</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Claude writes code</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Push PR to GitHub</div>
+</div>
+
+<h3>What Claude Does</h3>
 
 <div class="card">
-  <div class="card-label dev">Developer</div>
-  <h3>1. Pick up an issue</h3>
-  <p>
-    Assign yourself, move it to <strong>In Progress</strong>. Create a branch using Linear's naming convention — Linear auto-links branches that contain the issue ID (e.g. <code>tjuela/fwios-142-lazy-measurement-points</code>).
-  </p>
+  <span class="card-label dev">Dev</span>
+  <p><strong>Reads the issue</strong> and understands the requirements.</p>
+  <p><strong>Searches the codebase</strong> to find similar patterns and understand architecture.</p>
+  <p><strong>Writes code</strong> in the correct style and format.</p>
+  <p><strong>Runs tests</strong> to validate the implementation.</p>
+  <p><strong>Commits and pushes</strong> to GitHub, with PR descriptions auto-generated from the branch name.</p>
 </div>
 
-<div class="card">
-  <div class="card-label dev">Developer</div>
-  <h3>2. Implement with Claude Code</h3>
-  <p>
-    Claude Code runs in your terminal and has full access to the repo. It reads <code>CLAUDE.md</code> for project conventions (MVVM, <code>@Observable</code> view models, GRDB query patterns, the <code>WorkFeatures</code> package structure) so it writes code that fits our architecture from the start.
-  </p>
-  <p>Typical workflow:</p>
-  <ol>
-    <li>Point Claude Code at the spec: <em>"Read <code>docs/specs/time-confirmations-overview.md</code> and implement step 1."</em></li>
-    <li>Claude Code creates the view model, view, and previews following the MVVM pattern.</li>
-    <li>You review, iterate, and ask Claude Code to write tests (<code>Testing</code> framework, not XCTest).</li>
-    <li>When done, ask Claude Code to create the PR — it auto-detects the Linear issue ID from the branch name and adds <code>Closes FWIOS-142</code> to the description.</li>
-  </ol>
-  <div class="tip">
-    <strong>Tip:</strong> Claude Code's memory system learns your preferences over time. If you tell it "don't mock the database in integration tests," it remembers that for future sessions.
-  </div>
-</div>
+<h3>Branch Naming Convention</h3>
 
-<div class="card">
-  <div class="card-label dev">Developer</div>
-  <h3>3. PR &amp; review</h3>
-  <p>
-    PRs follow a consistent structure: summary, Linear issue reference (<code>Closes FWIOS-142</code>), ADO reference if applicable (<code>Fixes AB#12345</code>), and test plan. Claude Code generates this automatically. Reviewers can use Claude Code to understand unfamiliar code — <em>"Explain what this GRDB association query does"</em> — without leaving the terminal.
-  </p>
-</div>
+<p>Include the Linear issue ID in the branch name:</p>
 
-<!-- ========== CROSS-PLATFORM ========== -->
+<pre><code>git checkout -b DEV-123-add-user-auth</code></pre>
+
+<p class="tip"><strong>Pro Tip:</strong> The issue ID in the branch name helps Linear and GitHub stay in sync. When you push a branch, the PR is linked automatically, and when you merge, the issue closes.</p>
+
+<h3>Code Review</h3>
+
+<p>Claude can request a Copilot code review on your PR:</p>
+
+<pre><code>claude-code request-copilot-review [owner/repo PR#]</code></pre>
+
+<p>Copilot provides feedback on code quality, performance, and style. After addressing feedback, Claude pushes another commit.</p>
+
+<!-- ==================== CROSS-PLATFORM ==================== -->
+
 <h2 id="cross-platform">Cross-Platform Handoff</h2>
 
-<p>
-  One of Linear's biggest strengths for us is enabling <strong>one platform to define work for another</strong>. When the iOS team ships a feature, the implementation details become a blueprint for Android (and vice versa).
-</p>
+<p><span class="badge ios">iOS</span><span class="badge android">Android</span></p>
 
-<div class="card">
-  <div class="card-label dev">Cross-Platform</div>
-  <h3>How it works in practice</h3>
+<p>When features span multiple platforms, a single Linear issue coordinates the work across teams.</p>
 
-  <p><strong>Example: Operation Quantity</strong> — this feature was built on iOS first. The iOS implementation defined exactly what data to display (<code>OrderOperation.work</code> + <code>OrderOperation.workUnitOfMeasure</code>) and how. Once iOS shipped:</p>
+<h3>Flow: Coordinating iOS, Android, and Backend</h3>
 
-  <ol>
-    <li>A Linear project (<strong>Operation Quantity</strong>) was created spanning both teams.</li>
-    <li>The iOS spec and implementation became the reference for the <span class="badge android">FWAND</span> issue.</li>
-    <li>The Android developer can point Claude Code at the iOS spec: <em>"Read the Operation Quantity spec. Implement the equivalent in our Kotlin/Compose codebase."</em></li>
-    <li>Claude Code adapts the patterns to Android idioms while preserving the exact same business logic and UI behavior.</li>
-  </ol>
-
-  <div class="tip">
-    <strong>Tip:</strong> Use Linear project descriptions to document platform-agnostic behavior (what the feature does), and team-specific sub-issues for implementation details (how each platform builds it). This way the spec is shared but the tasks are independent.
-  </div>
+<div class="flow">
+  <div class="flow-step">Product writes spec</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Backend starts API</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">iOS &amp; Android wait</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Backend merges</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">iOS &amp; Android integrate</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Test together</div>
 </div>
 
-<div class="card">
-  <div class="card-label pm">Product &amp; PM</div>
-  <h3>Defining tasks for the other platform</h3>
-  <p>
-    Product managers and lead devs can use <strong>Cowork</strong> to generate well-structured cross-platform issues. For example:
-  </p>
-  <ol>
-    <li>Open Cowork with access to the repo.</li>
-    <li><em>"The Date Filter for Data Synchronization feature is complete on iOS. Read the spec at <code>docs/specs/date-filter.md</code> and create a Linear issue for the Android team describing what needs to be built, referencing the iOS implementation as a guide."</em></li>
-    <li>Cowork drafts the issue with the right level of detail — UI behavior, data flow, edge cases — so the Android team has a clear brief without needing to reverse-engineer the iOS code.</li>
-  </ol>
+<h3>Dependencies</h3>
+
+<p>In Linear, use <strong>blockedBy</strong> to mark dependencies:</p>
+
+<ul>
+  <li>iOS issue is blockedBy backend API issue</li>
+  <li>When backend issue closes, Linear notifies the iOS team</li>
+  <li>Claude can read dependencies and suggest parallel work</li>
+</ul>
+
+<!-- ==================== TESTING &amp; QA ==================== -->
+
+<h2 id="testing">Testing &amp; QA</h2>
+
+<p><span class="badge ios">iOS</span><span class="badge android">Android</span><span class="badge mw">Web</span></p>
+
+<p>Testing is part of the development flow, not a separate step.</p>
+
+<h3>Test Writing</h3>
+
+<p>Claude writes unit tests alongside the code. For iOS:</p>
+
+<pre><code>XCTest // Unit tests
+XCUITest // UI tests</code></pre>
+
+<p>For Android:</p>
+
+<pre><code>JUnit // Unit tests
+Espresso // UI tests</code></pre>
+
+<p>For Web:</p>
+
+<pre><code>Jest // Unit tests
+Playwright // E2E tests</code></pre>
+
+<h3>Continuous Integration</h3>
+
+<p>Every PR runs tests on GitHub Actions. If tests fail, Claude updates the branch and commits a fix.</p>
+
+<h3>Device Testing (iOS)</h3>
+
+<p>For iOS, use <strong>XcodeBuildMCP</strong> to run tests on the simulator:</p>
+
+<pre><code>claude-code build-run-sim</code></pre>
+
+<p>Claude can:</p>
+<ul>
+  <li>Boot the simulator</li>
+  <li>Build the app</li>
+  <li>Run UI tests</li>
+  <li>Capture screenshots</li>
+  <li>Read logs</li>
+</ul>
+
+<!-- ==================== INTEGRATIONS ==================== -->
+
+<h2 id="sentry">Sentry</h2>
+
+<p><span class="card-label ops">Ops</span></p>
+
+<p>Sentry tracks crashes and errors in production. Claude can read crash reports and create issues.</p>
+
+<h3>Workflow</h3>
+
+<div class="flow">
+  <div class="flow-step">Error occurs in production</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Sentry captures it</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Claude reads Sentry</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Creates Linear issue</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Team fixes it</div>
 </div>
 
-<!-- ========== TESTING ========== -->
-<h2 id="testing">Testing &amp; QA Workflow</h2>
+<h3>What Claude Does</h3>
 
-<div class="card">
-  <div class="card-label test">Tester</div>
-  <h3>1. Manual testing with Claude in Chrome</h3>
-  <p>
-    Testers can use <strong>Claude in Chrome</strong> to interact with web-based test management tools, Zendesk, and Sentry dashboards. Ask Claude to summarize a Sentry issue's stacktrace, cross-reference it with the Linear issue, or draft a bug report from what you're seeing in the browser.
-  </p>
+<ul>
+  <li>Fetches error details from Sentry</li>
+  <li>Runs root cause analysis (using Seer)</li>
+  <li>Creates a Linear issue with stack trace and reproduction steps</li>
+  <li>Assigns to the relevant team</li>
+</ul>
+
+<h2 id="zendesk">Zendesk</h2>
+
+<p><span class="card-label pm">PM</span></p>
+
+<p>Zendesk handles customer support tickets. Product reads them and creates Linear issues for features or bugs.</p>
+
+<h3>Workflow</h3>
+
+<div class="flow">
+  <div class="flow-step">Customer support ticket</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Product reviews</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Creates Linear issue</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">Links to Zendesk ticket</div>
 </div>
 
-<div class="card">
-  <div class="card-label test">Tester</div>
-  <h3>2. Automated UI testing</h3>
-  <p>
-    For iOS, we use <code>agent-device</code> to drive the simulator via the accessibility tree. Claude Code can write and run UI tests interactively:
-  </p>
-  <pre><code># Open the app on the simulator
-agent-device open io.arkyn.development.work
+<h3>What Claude Does</h3>
 
-# Inspect the current screen
-agent-device snapshot -i
+<ul>
+  <li>Reads Zendesk tickets</li>
+  <li>Extracts requirements and customer context</li>
+  <li>Writes issue descriptions</li>
+  <li>Suggests responses to customers</li>
+</ul>
 
-# Tap an element and verify the result
-agent-device press 'label="sidebar.item.myWorkOrders"'
-agent-device wait visible 'label="Order List"' 3000
-agent-device screenshot ./proof.png</code></pre>
-  <p>
-    All accessibility identifiers are centralized in <code>FastWork/AccessibilityIdentifiers.swift</code> using dot-separated namespacing (e.g. <code>sidebar.item.settings</code>). This keeps tests stable across localization and UI changes.
-  </p>
-</div>
+<h2 id="github">GitHub</h2>
 
-<div class="card">
-  <div class="card-label test">Tester</div>
-  <h3>3. Bug reporting loop</h3>
-  <div class="flow">
-    <div class="flow-step">Tester finds bug</div>
-    <div class="flow-arrow">&rarr;</div>
-    <div class="flow-step">Creates Linear issue with screenshot + steps</div>
-    <div class="flow-arrow">&rarr;</div>
-    <div class="flow-step">Dev picks up &amp; fixes with Claude Code</div>
-    <div class="flow-arrow">&rarr;</div>
-    <div class="flow-step">Tester verifies fix</div>
-  </div>
-  <p>
-    Cowork can help testers draft structured bug reports: paste in a screenshot and raw notes, and Claude structures it with reproduction steps, expected vs. actual behavior, and suggests which team/project to file it under.
-  </p>
-</div>
+<p><span class="card-label dev">Dev</span></p>
 
-<!-- ========== SENTRY ========== -->
-<h2 id="sentry">Sentry Integration</h2>
+<p>GitHub is where code lives. Claude pushes commits, creates PRs, and manages branches.</p>
 
-<div class="card">
-  <div class="card-label ops">Integration</div>
-  <h3>Crash monitoring &rarr; Linear issues</h3>
-  <p>
-    Sentry captures crashes and errors from the production app. Our workflow connects Sentry to Linear so issues flow automatically:
-  </p>
-  <ol>
-    <li><strong>Sentry alert fires</strong> — a new crash or error threshold is breached.</li>
-    <li><strong>Linear issue created</strong> — Sentry's Linear integration auto-creates an issue in the <strong>FastWork Support</strong> project with the stacktrace, affected users count, and device info.</li>
-    <li><strong>Triage</strong> — the issue is reviewed and moved to the appropriate team (<span class="badge ios">FWIOS</span> or <span class="badge android">FWAND</span>).</li>
-    <li><strong>Investigation with Claude</strong> — developers can use Claude Code to analyze the Sentry stacktrace in context: <em>"This Sentry crash points to <code>OrderDetailsWrapperViewModel</code>. Look at that file and explain what could cause this nil unwrap."</em></li>
-  </ol>
-  <div class="tip">
-    <strong>Tip:</strong> Cowork has direct access to Sentry via its MCP connector. You can ask: <em>"Show me the top unresolved Sentry issues for FastWork this week"</em> — and it will query Sentry, summarize the findings, and help you create Linear issues for the critical ones.
-  </div>
-</div>
+<h3>What Claude Does</h3>
 
-<!-- ========== ZENDESK ========== -->
-<h2 id="zendesk">Zendesk Integration</h2>
+<ul>
+  <li>Reads existing code to understand patterns</li>
+  <li>Creates branches with the Linear issue ID</li>
+  <li>Writes code and commits with clear messages</li>
+  <li>Opens PRs with auto-generated descriptions</li>
+  <li>Responds to review feedback and updates the branch</li>
+</ul>
 
-<div class="card">
-  <div class="card-label ops">Integration</div>
-  <h3>Customer tickets &rarr; Linear issues</h3>
-  <p>
-    When a customer reports a problem through Zendesk, the support team can escalate it to engineering by creating a Linear issue in the <strong>FastWork Support</strong> project. The process:
-  </p>
-  <ol>
-    <li><strong>Zendesk ticket arrives</strong> — support agent reviews and determines it needs engineering attention.</li>
-    <li><strong>Create Linear issue</strong> — using Zendesk's Linear integration or manually. Include the ticket link and key details.</li>
-    <li><strong>Cowork assists</strong> — if the support agent uses Cowork, they can paste the Zendesk conversation and ask Claude to extract the technical details, identify which area of the app is affected, and draft a well-structured Linear issue.</li>
-    <li><strong>Engineering triages</strong> — the issue is moved from FastWork Support to the appropriate team and prioritized.</li>
-  </ol>
-  <p>
-    Once the fix is shipped, the Linear issue status update flows back to the Zendesk ticket, closing the loop with the customer.
-  </p>
-</div>
+<p class="tip"><strong>Pro Tip:</strong> Branch names like <code>DEV-123-add-auth</code> automatically link the PR to the Linear issue. GitHub and Linear stay in sync, and when you merge, the issue closes automatically.</p>
 
-<!-- ========== GITHUB ========== -->
-<h2 id="github">GitHub Integration</h2>
+<h2 id="slack">Slack</h2>
 
-<div class="card">
-  <div class="card-label ops">Integration</div>
-  <h3>Automatic linking</h3>
-  <p>Linear and GitHub are tightly integrated:</p>
-  <ol>
-    <li><strong>Branch names</strong> containing the issue ID (e.g. <code>tjuela/fwios-142-...</code>) auto-link the branch to the Linear issue.</li>
-    <li><strong>PR descriptions</strong> with <code>Closes FWIOS-142</code> automatically transition the Linear issue to "Done" when the PR merges.</li>
-    <li><strong>Azure DevOps</strong> — if a Linear issue references an ADO task, include <code>Fixes AB#12345</code> in the PR description to auto-close the ADO work item too.</li>
-  </ol>
-  <p>
-    Claude Code handles all of this automatically when creating PRs — it reads the branch name, finds the Linear issue ID, and structures the PR description correctly.
-  </p>
-</div>
+<p><span class="card-label pm">PM</span></p>
 
-<!-- ========== CLAUDE CODE ========== -->
-<h2 id="claude-code">Claude Code — For Developers</h2>
+<p>Slack is how the team communicates. Claude can read channels, post updates, and notify teams.</p>
 
-<div class="card">
-  <div class="card-label dev">Developer Tool</div>
-  <h3>What it is</h3>
-  <p>
-    Claude Code is a terminal-based AI assistant that has full access to your codebase. It reads, writes, and executes code. It understands our project conventions via <code>CLAUDE.md</code> and remembers your personal preferences across sessions.
-  </p>
-  <h4>Key capabilities</h4>
-  <ol>
-    <li><strong>Implement from specs</strong> — point it at a feature spec and it builds the view model, view, previews, and tests following our MVVM + GRDB patterns.</li>
-    <li><strong>Create PRs</strong> — auto-detects Linear issue IDs, structures the PR description, includes ADO references.</li>
-    <li><strong>Debug with context</strong> — paste a Sentry stacktrace and ask it to investigate the root cause in the actual codebase.</li>
-    <li><strong>Write tests</strong> — generates tests using Apple's <code>Testing</code> framework (not XCTest) with proper mocks via <code>ActionService.setup</code>.</li>
-    <li><strong>Drive the simulator</strong> — uses <code>agent-device</code> to interact with the app, take screenshots, and verify UI behavior.</li>
-    <li><strong>Search Linear</strong> — can query Linear issues, projects, and teams to understand context before starting work.</li>
-  </ol>
-</div>
+<h3>What Claude Does</h3>
 
-<!-- ========== COWORK ========== -->
-<h2 id="cowork">Cowork — For Product &amp; PM</h2>
+<ul>
+  <li>Reads Slack threads to understand context</li>
+  <li>Posts status updates to channels</li>
+  <li>Notifies teams when issues are created or updated</li>
+  <li>Responds to messages in threads</li>
+  <li>Creates channels for projects</li>
+</ul>
 
-<div class="card">
-  <div class="card-label pm">PM Tool</div>
-  <h3>What it is</h3>
-  <p>
-    Cowork is Claude's desktop application for non-developers. It connects to Linear, Sentry, Zendesk, Slack, GitHub, and your local files — giving product managers and project leads an AI assistant that can read and act across all your tools.
-  </p>
-  <h4>Key capabilities</h4>
-  <ol>
-    <li><strong>Draft Linear issues</strong> — from raw notes, Zendesk transcripts, or Sentry stacktraces.</li>
-    <li><strong>Write feature specs</strong> — generates structured specs using our template and existing code as reference.</li>
-    <li><strong>Cross-platform task creation</strong> — reads an iOS implementation and creates a structured brief for the Android team (or vice versa).</li>
-    <li><strong>Status updates</strong> — ask Cowork to summarize progress on a Linear project, pulling data from issues, PRs, and milestones.</li>
-    <li><strong>Create presentations and docs</strong> — generate slide decks, reports, and documents from project data.</li>
-  </ol>
-</div>
+<p class="tip"><strong>Note:</strong> Claude respects permissions and only posts to channels where it has access.</p>
 
-<!-- ========== CHROME ========== -->
-<h2 id="chrome">Claude in Chrome — For Testers &amp; Support</h2>
+<h2 id="xcode-build">XcodeBuildMCP</h2>
 
-<div class="card">
-  <div class="card-label test">Tester &amp; Support Tool</div>
-  <h3>What it is</h3>
-  <p>
-    Claude in Chrome is a browser extension that lets Claude see and interact with the page you're viewing. Useful for testers working in web-based tools like Sentry, Zendesk, or internal dashboards.
-  </p>
-  <h4>Key capabilities</h4>
-  <ol>
-    <li><strong>Summarize Sentry issues</strong> — navigate to a Sentry issue page and ask Claude to explain the crash in plain language.</li>
-    <li><strong>Draft bug reports</strong> — while looking at unexpected behavior in a web app, ask Claude to write up a structured bug report.</li>
-    <li><strong>Navigate Zendesk</strong> — help support agents extract technical details from customer conversations.</li>
-    <li><strong>Compare behavior</strong> — take screenshots of expected vs. actual behavior and ask Claude to identify differences.</li>
-  </ol>
-</div>
+<p><span class="card-label dev">Dev</span></p>
 
-<!-- ========== DAILY LOOP ========== -->
-<h2 id="daily-loop">The Daily Loop</h2>
+<p>XcodeBuildMCP lets Claude build and test iOS apps directly from the command line.</p>
 
-<p>Here's what a typical day looks like when all the pieces are connected:</p>
+<h3>What Claude Does</h3>
 
-<table>
-  <thead><tr><th>Time</th><th>Activity</th><th>Tools</th></tr></thead>
-  <tbody>
-    <tr>
-      <td>Morning</td>
-      <td>Check Linear board for assigned issues. Review any overnight Sentry alerts that created issues in FastWork Support.</td>
-      <td>Linear, Sentry &rarr; Linear</td>
-    </tr>
-    <tr>
-      <td>Dev work</td>
-      <td>Pick up top-priority issue. Read the spec, implement with Claude Code, write tests, create PR.</td>
-      <td>Claude Code, GitHub</td>
-    </tr>
-    <tr>
-      <td>PM planning</td>
-      <td>Draft specs for upcoming features in Cowork. Create cross-platform sub-issues for Android. Update project status.</td>
-      <td>Cowork, Linear</td>
-    </tr>
-    <tr>
-      <td>QA</td>
-      <td>Test the latest build on simulator/device. Use agent-device for automated checks. File bugs back to Linear.</td>
-      <td>agent-device, Claude in Chrome, Linear</td>
-    </tr>
-    <tr>
-      <td>Support</td>
-      <td>Escalate Zendesk tickets to engineering via Linear. Use Cowork to draft well-structured issues from customer reports.</td>
-      <td>Zendesk &rarr; Linear, Cowork</td>
-    </tr>
-    <tr>
-      <td>End of day</td>
-      <td>Update Linear issue statuses. Review PRs with Claude Code assistance.</td>
-      <td>Linear, Claude Code, GitHub</td>
-    </tr>
-  </tbody>
-</table>
+<ul>
+  <li>Boots the iOS simulator</li>
+  <li>Builds the Xcode project</li>
+  <li>Runs unit and UI tests</li>
+  <li>Captures screenshots</li>
+  <li>Reads console logs</li>
+  <li>Installs apps on the simulator</li>
+</ul>
 
-<!-- ========== CONVENTIONS ========== -->
+<h3>Example Workflow</h3>
+
+<p>When Claude finishes writing iOS code:</p>
+
+<pre><code>claude-code build-run-sim
+# Claude boots simulator, builds, and runs the app
+# Then captures screenshots or runs tests
+# Commits results back to the branch</code></pre>
+
+<h2 id="dash">Dash Docs</h2>
+
+<p><span class="card-label dev">Dev</span></p>
+
+<p>Dash is an offline documentation browser. Claude can search it for API references and code examples.</p>
+
+<h3>What Claude Does</h3>
+
+<ul>
+  <li>Searches for documentation on iOS, Android, Web frameworks</li>
+  <li>Fetches code examples</li>
+  <li>Checks function signatures and return types</li>
+  <li>Looks up syntax without leaving Claude Code</li>
+</ul>
+
+<p class="tip"><strong>Pro Tip:</strong> Dash is faster than online searches and doesn't require a network connection. Perfect for when you need quick reference lookups while coding.</p>
+
+<h2 id="scheduled-tasks">Scheduled Tasks</h2>
+
+<p><span class="card-label ops">Ops</span></p>
+
+<p>Scheduled Tasks let Claude run periodic workflows automatically—like daily standups, weekly reports, or nightly builds.</p>
+
+<h3>What Claude Does</h3>
+
+<ul>
+  <li>Runs tasks on a schedule (daily, weekly, monthly, or custom)</li>
+  <li>Executes one-time tasks at a specific time</li>
+  <li>Reads Linear issues and creates status reports</li>
+  <li>Sends Slack notifications</li>
+  <li>Generates metrics and dashboards</li>
+</ul>
+
+<h3>Example: Daily Standup</h3>
+
+<p>Schedule a task to run every morning at 9 AM:</p>
+
+<pre><code>claude-code schedule "Daily standup" "0 9 * * *"</code></pre>
+
+<p>Claude reads the team's Linear cycle, gathers today's tasks, and posts a summary to Slack.</p>
+
+<p class="tip"><strong>Pro Tip:</strong> Use Scheduled Tasks to automate routine work like status checks, metrics collection, or release notes generation.</p>
+
+<!-- ==================== CLAUDE TOUCHPOINTS ==================== -->
+
+<h2 id="claude-code">Claude Code</h2>
+
+<p>Claude Code is the primary interface for development work. Open a project, ask Claude to read an issue, and start shipping code.</p>
+
+<h3>Quick Start</h3>
+
+<pre><code>npm install -g @anthropic-ai/claude-code
+cd /path/to/project
+claude-code open .</code></pre>
+
+<p>Once open, you're in a session where Claude can:</p>
+<ul>
+  <li>Read and search your codebase</li>
+  <li>Write and edit files</li>
+  <li>Run shell commands and tests</li>
+  <li>Make commits and push branches</li>
+  <li>Create pull requests</li>
+</ul>
+
+<h2 id="cowork">Cowork</h2>
+
+<p>Cowork is Anthropic's plugin ecosystem. It extends Claude with integrations to tools like Linear, GitHub, Slack, and more.</p>
+
+<h3>Quick Start</h3>
+
+<pre><code>claude setup-cowork</code></pre>
+
+<p>Choose your role, pick plugins, and authenticate. Once set up, all future Claude sessions have access to those tools.</p>
+
+<h2 id="chrome">Claude in Chrome</h2>
+
+<p>The Chrome extension brings Claude into your browser. Highlight text on any page, ask Claude a question, and get an answer in a side panel.</p>
+
+<h3>Use Cases</h3>
+
+<ul>
+  <li><strong>Linear:</strong> Highlight an issue and ask Claude to summarize or expand it</li>
+  <li><strong>GitHub:</strong> Ask Claude to explain a PR or review code</li>
+  <li><strong>Sentry:</strong> Ask Claude to analyze an error and suggest a fix</li>
+  <li><strong>Slack:</strong> Ask Claude to draft a response or find context</li>
+</ul>
+
+<!-- ==================== REFERENCE ==================== -->
+
+<h2 id="daily-loop">Daily Loop</h2>
+
+<h3>9 AM: Standup</h3>
+<p>Claude reads Linear, Slack, and Sentry to generate a daily standup.</p>
+
+<h3>10 AM: Grab a Task</h3>
+<p>Pick an issue from the Linear cycle that's ready to build. Run <code>claude-code open .</code> and ask Claude to read the issue.</p>
+
+<h3>10 AM – 5 PM: Build</h3>
+<p>Claude writes code, runs tests, and pushes PRs. You review and provide feedback.</p>
+
+<h3>5 PM: Review PRs</h3>
+<p>Claude responds to code review feedback, updates the branch, and merges when approved.</p>
+
+<h3>5:30 PM: Handoff</h3>
+<p>Update Linear issue status, link to the merged PR, and move to the next issue.</p>
+
 <h2 id="conventions">Conventions &amp; Tips</h2>
 
-<h3>Linear conventions</h3>
-<ol>
-  <li><strong>Issue titles</strong> should be concise and action-oriented: "Add date filter to sync settings" not "Date filter feature".</li>
-  <li><strong>Labels</strong> — use labels to categorize: <code>bug</code>, <code>feature</code>, <code>improvement</code>, <code>support</code>.</li>
-  <li><strong>Projects</strong> group related work that spans multiple sprints. Keep project descriptions up to date — they serve as the single source of truth for what the feature does.</li>
-  <li><strong>Sub-issues</strong> break a project into implementable chunks. Assign each to a specific team.</li>
-  <li><strong>Cycles</strong> (sprints) — assign issues to the current cycle for sprint planning. Keep cycle scope realistic.</li>
-</ol>
+<h3>Commit Message Convention</h3>
 
-<h3>Claude conventions</h3>
-<ol>
-  <li><strong>Be specific</strong> — "Read the spec at <code>docs/specs/time-confirmations-overview.md</code> and implement step 3" beats "add time confirmations."</li>
-  <li><strong>Reference existing patterns</strong> — "Follow the pattern in <code>StationDetailsView</code>" gives Claude a concrete example to mirror.</li>
-  <li><strong>Let Claude read first</strong> — don't paste code into the chat. Let Claude Code read the files directly so it has full context.</li>
-  <li><strong>Review what it writes</strong> — Claude is a co-pilot, not autopilot. Always review generated code, specs, and issues before they go live.</li>
-  <li><strong>Give feedback</strong> — if Claude gets something wrong, tell it. It learns your preferences across sessions via its memory system.</li>
-</ol>
+<p>Claude writes clear, conventional commit messages:</p>
 
-<h3>Branch &amp; PR naming</h3>
-<pre><code># Branch: include the Linear issue ID
-git checkout -b tjuela/fwios-142-lazy-measurement-points
+<pre><code>feat(auth): add email verification
+fix(api): handle null user gracefully
+test(payment): add coverage for refunds
+docs: update API reference</code></pre>
 
-# PR description: Linear auto-links and transitions
-Closes FWIOS-142
-Fixes AB#12345  # if ADO task exists</code></pre>
+<p class="tip"><strong>Pro Tip:</strong> Include the Linear issue ID in the first line or body for automatic linking.</p>
 
-<div class="warning">
-  <strong>Note:</strong> Claude Code generates PR descriptions automatically following these conventions. You just need to make sure your branch name includes the issue ID.
-</div>
+<h3>Pull Request Descriptions</h3>
+
+<p>Claude generates PR descriptions automatically following these conventions. You just need to make sure your branch name includes the issue ID.</p>
 
 <p style="margin-top: 4rem; color: var(--text-muted); font-size: 0.85rem; text-align: center;">
-  Built for the Arkyn team &mdash; April 2026
+  Built for the Arkyn team — April 2026
 </p>
 
 </main>
