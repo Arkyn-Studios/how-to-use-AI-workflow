@@ -305,11 +305,10 @@
 
 <p>Claude Code is Anthropic's official CLI for Claude. It lets you open projects and work with them directly.</p>
 
-<p><strong>Installation:</strong></p>
-<pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+<p><strong>Installation:</strong> <a href="https://claude.com/download">claude.com/download</a></p>
 
 <p><strong>Usage:</strong></p>
-<pre><code>claude-code open /path/to/project</code></pre>
+<pre><code>claude open /path/to/project</code></pre>
 
 <p>Once opened, you can ask Claude to read files, run commands, make commits, and push code—all without leaving the tool.</p>
 
@@ -422,7 +421,7 @@
 <div class="flow">
   <div class="flow-step">Open issue in Linear</div>
   <div class="flow-arrow">→</div>
-  <div class="flow-step">Run <code>claude-code open .</code></div>
+  <div class="flow-step">Run <code>claude open .</code></div>
   <div class="flow-arrow">→</div>
   <div class="flow-step">Ask Claude to read the issue</div>
   <div class="flow-arrow">→</div>
@@ -450,13 +449,6 @@
 
 <p class="tip"><strong>Pro Tip:</strong> The issue ID in the branch name helps Linear and GitHub stay in sync. When you push a branch, the PR is linked automatically, and when you merge, the issue closes.</p>
 
-<h3>Code Review</h3>
-
-<p>Claude can request a Copilot code review on your PR:</p>
-
-<pre><code>claude-code request-copilot-review [owner/repo PR#]</code></pre>
-
-<p>Copilot provides feedback on code quality, performance, and style. After addressing feedback, Claude pushes another commit.</p>
 
 <!-- ==================== CROSS-PLATFORM ==================== -->
 
@@ -608,7 +600,7 @@ Playwright // E2E tests</code></pre>
 
 <p>Schedule a task to run every morning at 9 AM:</p>
 
-<pre><code>claude-code schedule "Daily standup" "0 9 * * *"</code></pre>
+<pre><code>claude schedule "Daily standup" "0 9 * * *"</code></pre>
 
 <p>Claude reads the team's Linear cycle, gathers today's tasks, and posts a summary to Slack.</p>
 
@@ -622,9 +614,10 @@ Playwright // E2E tests</code></pre>
 
 <h3>Quick Start</h3>
 
-<pre><code>npm install -g @anthropic-ai/claude-code
-cd /path/to/project
-claude-code open .</code></pre>
+<p>Install from <a href="https://claude.com/download">claude.com/download</a>, then:</p>
+
+<pre><code>cd /path/to/project
+claude open .</code></pre>
 
 <p>Once open, you're in a session where Claude can:</p>
 <ul>
